@@ -32,7 +32,7 @@
           pkgs.rustc
           pkgs.rust-analyzer
           pkgs.cargo
-          packages.pythonpkg
+          python_version
         ];
       };
       lib = {
