@@ -25,5 +25,6 @@ fn detect_codec(a: &[u8]) -> PyResult<PyObject> {
 #[pymodule]
 fn rs_chardet(_py: Python, m: &PyModule) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(detect_rs_enc_name, m)?)?;
+    m.add_function(wrap_pyfunction!(detect_codec, m)?)?;
     Ok(())
 }
