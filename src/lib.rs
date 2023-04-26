@@ -24,6 +24,7 @@ fn detect_codec(a: &[u8]) -> PyResult<PyObject> {
 /// A Python module implemented in Rust.
 #[pymodule]
 fn rs_chardet(_py: Python, m: &PyModule) -> PyResult<()> {
+    m.add("__version__", env!("CARGO_PKG_VERSION"))?;
     m.add_function(wrap_pyfunction!(detect_rs_enc_name, m)?)?;
     m.add_function(wrap_pyfunction!(detect_codec, m)?)?;
     Ok(())

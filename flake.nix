@@ -16,7 +16,7 @@
         overlays = [inputs.rust-overlay.overlays.default];
       };
       project_name = "rs_chardet";
-      project_version = "0.1.0";
+      project_version = "0.1.1";
       python_version = pkgs.python310;
       buildPythonPackage = pkgs.python310Packages.buildPythonPackage;
     in rec {
@@ -25,6 +25,8 @@
         default = packages.pythonpkg;
         pythonpkg = python_version.withPackages (ps: [
           lib.python_module
+          ps.chardet
+          ps.cchardet
         ]);
       };
       devShells.default = pkgs.mkShell {
@@ -32,7 +34,8 @@
           pkgs.rustc
           pkgs.rust-analyzer
           pkgs.cargo
-          python_version
+	  pkgs.maturin
+          packages.pythonpkg
         ];
       };
       lib = {
