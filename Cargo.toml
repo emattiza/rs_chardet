@@ -9,5 +9,5 @@ name = "rs_chardet"
 crate-type = ["cdylib"]
 
 [dependencies]
-chardetng = "0.1.17"
+chardetng = { version = "0.1.17", features = ["multithreading"]}
 pyo3 = { version = "0.16.5", features = ["extension-module"] }

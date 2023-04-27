@@ -30,19 +30,19 @@ def main():
     import cchardet
     import rs_chardet
 
-    do_times = 5
+    do_times = 20
     path = (
         Path(__file__).parent
     ) / "samples/wikipediaJa_One_Thousand_and_One_Nights_SJIS.txt"
     with path.open("rb") as f:
         msg = f.read()
 
-        detector_chardet = lambda msg: chardet.detect(msg)
+        # detector_chardet = lambda msg: chardet.detect(msg)
         detector_rschardet = lambda msg: rs_chardet.detect_rs_enc_name(msg)
         detector_cchardet = lambda msg: cchardet.detect(msg)
 
         # Test chardet
-        benchmark_impl(msg, detector_chardet, do_times, chardet, None)
+        # benchmark_impl(msg, detector_chardet, do_times, chardet, None)
         benchmark_impl(msg, detector_rschardet, do_times, rs_chardet, None)
         benchmark_impl(msg, detector_cchardet, do_times, cchardet, None)
 
