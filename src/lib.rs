@@ -1,6 +1,8 @@
 use chardetng::EncodingDetector;
 use pyo3::prelude::*;
 
+/// Detect a character set from an array of bytes
+/// Returns the name as found by chardet-ng
 #[pyfunction]
 fn detect_rs_enc_name(a: &[u8]) -> PyResult<&str> {
     let mut detector = EncodingDetector::new();
@@ -10,6 +12,8 @@ fn detect_rs_enc_name(a: &[u8]) -> PyResult<&str> {
     Ok(rust_name)
 }
 
+/// Detect a character set from an array of bytes
+/// Returns the name as found by codecs.lookup from python
 #[pyfunction]
 fn detect_codec(a: &[u8]) -> PyResult<PyObject> {
     let enc_rs_name = detect_rs_enc_name(a)?;
@@ -21,7 +25,8 @@ fn detect_codec(a: &[u8]) -> PyResult<PyObject> {
     lookup_codec
 }
 
-/// A Python module implemented in Rust.
+/// Chardet-NG support in python from rust
+/// Enables character set detection provided a byte sample
 #[pymodule]
 fn rs_chardet(_py: Python, m: &PyModule) -> PyResult<()> {
     m.add("__version__", env!("CARGO_PKG_VERSION"))?;
