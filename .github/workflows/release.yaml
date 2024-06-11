@@ -149,9 +149,7 @@ jobs:
         os: [ubuntu-latest, macos-13]
         target: [x86_64, aarch64]
         python-version:
-          - '3.7'
           - '3.8'
-          - '3.9'
         exclude:
           - os: macos-13
             target: aarch64
