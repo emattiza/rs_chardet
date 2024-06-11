@@ -14,7 +14,7 @@ concurrency:
 
 env:
   PACKAGE_NAME: rs_chardet
-  PYTHON_VERSION: "3.7" # to build abi3 wheels
+  PYTHON_VERSION: "3.8" # to build abi3 wheels
 
 jobs:
   macos:
@@ -132,11 +132,11 @@ jobs:
         with:
           target: ${{ matrix.target }}
           manylinux: auto
-          args: --release -i python3.7 --out dist
+          args: --release -i python3.8 --out dist
           maturin-version: "v0.13.0"
           before-script-linux: |
-            echo $(which python3.7)
-            python3.7 --version
+            echo $(which python3.8)
+            python3.8 --version
       - name: Upload wheels
         uses: actions/upload-artifact@v2
         with:
