@@ -210,7 +210,7 @@ dependencies = [
 
 [[package]]
 name = "rs_chardet"
-version = "0.2.0"
+version = "0.2.1"
 dependencies = [
  "chardetng",
  "pyo3",
