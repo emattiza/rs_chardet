@@ -14,7 +14,7 @@ concurrency:
 
 env:
   PACKAGE_NAME: rs_chardet
-  PYTHON_VERSION: "3.8" # to build abi3 wheels
+  PYTHON_VERSION: "3.9" # to build abi3 wheels
 
 jobs:
   macos:
