@@ -35,7 +35,7 @@ jobs:
         uses: PyO3/maturin-action@v1
         with:
           target: x86_64
-          args: --release --out dist
+          args: --release --out dist -i python${{ env.PYTHON_VERSION }}
           maturin-version: "v0.13.0"
       - name: Install built wheel - x86_64
         run: |
@@ -43,7 +43,7 @@ jobs:
       - name: Build wheels - universal2
         uses: PyO3/maturin-action@v1
         with:
-          args: --release --universal2 --out dist
+          args: --release --universal2 --out dist -i python${{ env.PYTHON_VERSION }}
           maturin-version: "v0.13.0"
       - name: Install built wheel - universal2
         run: |
@@ -75,7 +75,7 @@ jobs:
         uses: PyO3/maturin-action@v1
         with:
           target: ${{ matrix.target }}
-          args: --release --out dist
+          args: --release --out dist -i python${{ env.PYTHON_VERSION }}
           maturin-version: "v0.13.0"
       - name: Install built wheel
         shell: bash
@@ -103,7 +103,7 @@ jobs:
         with:
           target: ${{ matrix.target }}
           manylinux: auto
-          args: --release -i python3.9 --out dist
+          args: --release --out dist -i python${{ env.PYTHON_VERSION }}
           maturin-version: "v0.13.0"
           before-script-linux: |
             echo $(which python3.9)
@@ -135,7 +135,7 @@ jobs:
         with:
           target: ${{ matrix.target }}
           manylinux: auto
-          args: --release -i python3.9 --out dist
+          args: --release --out dist -i python${{ env.PYTHON_VERSION }}
           maturin-version: "v0.13.0"
           before-script-linux: |
             echo $(which python3.9)
@@ -186,7 +186,7 @@ jobs:
         uses: PyO3/maturin-action@v1
         with:
           command: sdist
-          args: --out dist
+          args: --out dist -i python${{ env.PYTHON_VERSION }}
       - name: Upload sdist
         uses: actions/upload-artifact@v4
         with:
