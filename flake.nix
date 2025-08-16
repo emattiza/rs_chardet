@@ -17,8 +17,8 @@
       };
       project_name = "rs_chardet";
       project_version = "0.3.0";
-      python_version = pkgs.python310;
-      buildPythonPackage = pkgs.python310Packages.buildPythonPackage;
+      python_version = pkgs.python313;
+      buildPythonPackage = pkgs.python313Packages.buildPythonPackage;
     in rec {
       packages = {
         # A python version with the library installed

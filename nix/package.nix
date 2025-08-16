@@ -13,12 +13,12 @@
 buildPythonPackage rec {
   inherit src version pname;
   format = "pyproject";
-  disabled = pythonOlder "3.7";
+  disabled = pythonOlder "3.8";
 
-  cargoDeps = rustPlatform.fetchCargoTarball {
+  cargoDeps = rustPlatform.fetchCargoVendor {
     inherit src;
     name = "${pname}-${version}";
-    hash = "sha256-RodHVLdtEim/LuqP2pc4DWLQmkXXYhlHNU3G927YG4Q=";
+    hash = "sha256-3/aE+RfMohd5GtVB2LtYKuLbIQWP4tlTAzAgHuSruD4=";
   };
 
   nativeBuildInputs = with rustPlatform; [cargoSetupHook maturinBuildHook];
