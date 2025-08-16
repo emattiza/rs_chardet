@@ -18,7 +18,7 @@ fn detect_rs_enc_name(a: &[u8]) -> PyResult<&str> {
 fn detect_codec(a: &[u8]) -> PyResult<PyObject> {
     let enc_rs_name = detect_rs_enc_name(a)?;
     let lookup_codec: PyResult<PyObject> = Python::with_gil(|py| {
-        let lookup_fn = py.import_bound("codecs")?.getattr("lookup")?;
+        let lookup_fn = py.import("codecs")?.getattr("lookup")?;
         let lookup_value = lookup_fn.call1((enc_rs_name,))?.into();
         Ok(lookup_value)
     });
