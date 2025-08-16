@@ -51,8 +51,7 @@ jobs:
       - name: Upload wheels
         uses: actions/upload-artifact@v4
         with:
-          id: rschardet-macos
-          name: wheels
+          name: rschardet-macos
           path: dist
 
   windows:
@@ -85,8 +84,7 @@ jobs:
       - name: Upload wheels
         uses: actions/upload-artifact@v4
         with:
-          id: rschardet-windows-${{ matrix.target }}
-          name: wheels
+          name: rschardet-windows-${{ matrix.target }}
           path: dist
 
   linux:
@@ -117,8 +115,7 @@ jobs:
       - name: Upload wheels
         uses: actions/upload-artifact@v4
         with:
-          id: rschardet-linux-${{ matrix.target }}
-          name: wheels
+          name: rschardet-linux-${{ matrix.target }}
           path: dist
 
   linux-cross:
@@ -146,8 +143,7 @@ jobs:
       - name: Upload wheels
         uses: actions/upload-artifact@v4
         with:
-          id: rschardet-linux-cross-${{ matrix.target }}
-          name: wheels
+          name: rschardet-linux-cross-${{ matrix.target }}
           path: dist
   pypy:
     runs-on: ${{ matrix.os }}
@@ -179,8 +175,7 @@ jobs:
       - name: Upload wheels
         uses: actions/upload-artifact@v4
         with:
-          id: rschardet-pypi-${{ matrix.os }}-${{ matrix.target }}
-          name: wheels
+          name: rschardet-pypi-${{ matrix.os }}-${{ matrix.target }}
           path: dist
 
   sdist:
@@ -195,8 +190,7 @@ jobs:
       - name: Upload sdist
         uses: actions/upload-artifact@v4
         with:
-          id: rschardet-sdist-${{ matrix.os }}-${{ matrix.target}}
-          name: wheels
+          name: rschardet-sdist-${{ matrix.os }}-${{ matrix.target}}
           path: dist
 
   release:
