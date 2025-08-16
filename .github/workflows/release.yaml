@@ -5,7 +5,7 @@ on:
     branches:
       - main
     tags:
-      - 'v*'
+      - "v*"
   pull_request:
 
 concurrency:
@@ -51,9 +51,9 @@ jobs:
       - name: Upload wheels
         uses: actions/upload-artifact@v4
         with:
+          id: rschardet-macos
           name: wheels
           path: dist
-          overwrite: true
 
   windows:
     runs-on: windows-latest
@@ -85,9 +85,9 @@ jobs:
       - name: Upload wheels
         uses: actions/upload-artifact@v4
         with:
+          id: rschardet-windows-${{ matrix.target }}
           name: wheels
           path: dist
-          overwrite: true
 
   linux:
     runs-on: ubuntu-latest
@@ -117,9 +117,9 @@ jobs:
       - name: Upload wheels
         uses: actions/upload-artifact@v4
         with:
+          id: rschardet-linux-${{ matrix.target }}
           name: wheels
           path: dist
-          overwrite: true
 
   linux-cross:
     runs-on: ubuntu-latest
@@ -146,9 +146,9 @@ jobs:
       - name: Upload wheels
         uses: actions/upload-artifact@v4
         with:
+          id: rschardet-linux-cross-${{ matrix.target }}
           name: wheels
           path: dist
-          overwrite: true
   pypy:
     runs-on: ${{ matrix.os }}
     strategy:
@@ -156,7 +156,7 @@ jobs:
         os: [ubuntu-latest, macos-13]
         target: [x86_64, aarch64]
         python-version:
-          - '3.9'
+          - "3.9"
         exclude:
           - os: macos-13
             target: aarch64
@@ -179,9 +179,9 @@ jobs:
       - name: Upload wheels
         uses: actions/upload-artifact@v4
         with:
+          id: rschardet-pypi-${{ matrix.os }}-${{ matrix.target }}
           name: wheels
           path: dist
-          overwrite: true
 
   sdist:
     runs-on: ubuntu-latest
@@ -195,9 +195,9 @@ jobs:
       - name: Upload sdist
         uses: actions/upload-artifact@v4
         with:
+          id: rschardet-sdist-${{ matrix.os }}-${{ matrix.target}}
           name: wheels
           path: dist
-          overwrite: true
 
   release:
     name: Release
@@ -211,11 +211,13 @@ jobs:
       - linux-cross
       - pypy
       - sdist
-    if: startsWith(github.ref, 'refs/tags/v')
+    # if: startsWith(github.ref, 'refs/tags/v')
     steps:
       - uses: actions/download-artifact@v4
         with:
-          name: wheels
           path: dist
-      - name: Publish package distributions to PyPI
-        uses: pypa/gh-action-pypi-publish@release/v1
+          merge-multiple: true
+      - name: Display structure of artifacts
+        run: ls -R dist
+      # - name: Publish package distributions to PyPI
+      #   uses: pypa/gh-action-pypi-publish@release/v1
