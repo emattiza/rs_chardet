@@ -16,7 +16,7 @@
         overlays = [inputs.rust-overlay.overlays.default];
       };
       project_name = "rs_chardet";
-      project_version = "0.3.0";
+      project_version = "0.4.1";
       python_version = pkgs.python313;
       buildPythonPackage = pkgs.python313Packages.buildPythonPackage;
     in rec {
