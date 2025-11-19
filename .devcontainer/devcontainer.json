@@ -5,7 +5,7 @@
 {
 	"name": "rs_chardet - Rust + Python",
 	// Using Python 3.12 base image for Python development
-	"image": "mcr.microsoft.com/devcontainers/python:3.12",
+	"image": "mcr.microsoft.com/devcontainers/python:3.14",
 	// Features add additional features to your environment. See https://containers.dev/features
 	"features": {
 		// Install Rust toolchain with stable version
