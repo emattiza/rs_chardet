@@ -167,7 +167,7 @@ jobs:
           maturin-version: "v0.13.0"
           target: ${{ matrix.target }}
           manylinux: auto
-          args: --release --out dist -i pypy${{ matrix.python-version }}
+          args: --release --out dist -i python${{ matrix.python-version }}
       - name: Install built wheel
         if: (matrix.os == 'ubuntu-latest' && matrix.target == 'x86_64') || (matrix.os == 'macos-15' && matrix.target == 'aarch64')
         run: |
