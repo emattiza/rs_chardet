@@ -14,7 +14,7 @@ concurrency:
 
 env:
   PACKAGE_NAME: rs_chardet
-  PYTHON_VERSION: "3.9" # to build abi3 wheels
+  PYTHON_VERSION: "3.10" # to build abi3 wheels
 
 jobs:
   macos:
@@ -58,7 +58,7 @@ jobs:
     runs-on: windows-latest
     strategy:
       matrix:
-        target: [x64, x86]
+        target: [x64]
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-python@v6
@@ -106,8 +106,8 @@ jobs:
           args: --release --out dist -i python${{ env.PYTHON_VERSION }}
           maturin-version: "v0.13.0"
           before-script-linux: |
-            echo $(which python3.9)
-            python3.9 --version
+            echo $(which python3.10)
+            python3.10 --version
       - name: Install built wheel
         if: (matrix.os == 'ubuntu-latest' && matrix.target == 'x86_64') || (matrix.os == 'macos-15' && matrix.target == 'aarch64')
         run: |
@@ -138,44 +138,12 @@ jobs:
           args: --release --out dist -i python${{ env.PYTHON_VERSION }}
           maturin-version: "v0.13.0"
           before-script-linux: |
-            echo $(which python3.9)
-            python3.9 --version
+            echo $(which python3.10)
+            python3.10 --version
       - name: Upload wheels
         uses: actions/upload-artifact@v5
         with:
           name: rschardet-linux-cross-${{ matrix.target }}
-          path: dist
-  pypy:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest, macos-15]
-        target: [x86_64, aarch64]
-        python-version:
-          - "3.9"
-        exclude:
-          - os: macos-15
-            target: x86_64
-    steps:
-      - uses: actions/checkout@v5
-      - uses: actions/setup-python@v6
-        with:
-          python-version: pypy${{ matrix.python-version }}
-      - name: Build wheels
-        uses: PyO3/maturin-action@v1
-        with:
-          maturin-version: "v0.13.0"
-          target: ${{ matrix.target }}
-          manylinux: auto
-          args: --release --out dist -i pypy${{ matrix.python-version }}
-      - name: Install built wheel
-        if: (matrix.os == 'ubuntu-latest' && matrix.target == 'x86_64') || (matrix.os == 'macos-15' && matrix.target == 'aarch64')
-        run: |
-          pip install dist/${{ env.PACKAGE_NAME }}-*.whl --force-reinstall
-      - name: Upload wheels
-        uses: actions/upload-artifact@v5
-        with:
-          name: rschardet-pypi-${{ matrix.os }}-${{ matrix.target }}
           path: dist
 
   sdist:
@@ -203,7 +171,6 @@ jobs:
       - windows
       - linux
       - linux-cross
-      - pypy
       - sdist
     if: startsWith(github.ref, 'refs/tags/v')
     steps:
