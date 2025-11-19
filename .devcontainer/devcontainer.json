@@ -1,0 +1,29 @@
+// The Dev Container format allows you to configure your environment. At the heart of it
+// is a Docker image or Dockerfile which controls the tools available in your environment.
+//
+// See https://aka.ms/devcontainer.json for more information.
+{
+	"name": "rs_chardet - Rust + Python",
+	// Using Python 3.12 base image for Python development
+	"image": "mcr.microsoft.com/devcontainers/python:3.12",
+	// Features add additional features to your environment. See https://containers.dev/features
+	"features": {
+		// Install Rust toolchain with stable version
+		"ghcr.io/devcontainers/features/rust:1": {
+			"version": "latest",
+			"profile": "default"
+		}
+	},
+	// Install Python dependencies after container creation
+	"postCreateCommand": "pip install --upgrade pip && pip install maturin",
+	// Configure VS Code settings
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"rust-lang.rust-analyzer",
+				"ms-python.python",
+				"ms-python.vscode-pylance"
+			]
+		}
+	}
+}
