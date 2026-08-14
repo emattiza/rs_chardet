@@ -18,10 +18,10 @@ env:
 
 jobs:
   macos:
-    runs-on: macos-15
+    runs-on: macos-26
     steps:
       - uses: actions/checkout@v7
-      - uses: actions/setup-python@v6
+      - uses: actions/setup-python@v7
         with:
           python-version: ${{ env.PYTHON_VERSION }}
           architecture: arm64
@@ -36,7 +36,7 @@ jobs:
         run: |
           pip install dist/${{ env.PACKAGE_NAME }}-*.whl --force-reinstall
       - name: Upload wheels
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: rschardet-macos
           path: dist
@@ -48,7 +48,7 @@ jobs:
         target: [x64]
     steps:
       - uses: actions/checkout@v7
-      - uses: actions/setup-python@v6
+      - uses: actions/setup-python@v7
         with:
           python-version: ${{ env.PYTHON_VERSION }}
           architecture: ${{ matrix.target }}
@@ -64,7 +64,7 @@ jobs:
         run: |
           python -m pip install dist/${{ env.PACKAGE_NAME }}-*.whl --force-reinstall
       - name: Upload wheels
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: rschardet-windows-${{ matrix.target }}
           path: dist
@@ -76,7 +76,7 @@ jobs:
         target: [x64]
     steps:
       - uses: actions/checkout@v7
-      - uses: actions/setup-python@v6
+      - uses: actions/setup-python@v7
         with:
           python-version: ${{ env.PYTHON_VERSION }}
           architecture: ${{ matrix.target }}
@@ -95,7 +95,7 @@ jobs:
         run: |
           pip install dist/${{ env.PACKAGE_NAME }}-*.whl --force-reinstall
       - name: Upload wheels
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: rschardet-linux-${{ matrix.target }}
           path: dist
@@ -108,8 +108,8 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - name: Setup QEMU
-        uses: docker/setup-qemu-action@v3
-      - uses: actions/setup-python@v6
+        uses: docker/setup-qemu-action@v4
+      - uses: actions/setup-python@v7
         with:
           python-version: ${{ env.PYTHON_VERSION }}
       - name: Install Rust toolchain
@@ -124,7 +124,7 @@ jobs:
             echo $(which python3.11)
             python3.11 --version
       - name: Upload wheels
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: rschardet-linux-cross-${{ matrix.target }}
           path: dist
@@ -141,7 +141,7 @@ jobs:
           command: sdist
           args: --out dist
       - name: Upload sdist
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: rschardet-sdist
           path: dist
@@ -160,7 +160,7 @@ jobs:
       - sdist
     if: startsWith(github.ref, 'refs/tags/v')
     steps:
-      - uses: actions/download-artifact@v7
+      - uses: actions/download-artifact@v8
         with:
           path: dist
           merge-multiple: true
