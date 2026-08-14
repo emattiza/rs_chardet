@@ -13,7 +13,7 @@
 buildPythonPackage rec {
   inherit src version pname;
   format = "pyproject";
-  disabled = pythonOlder "3.8";
+  disabled = pythonOlder "3.11";
 
   cargoDeps = rustPlatform.fetchCargoVendor {
     inherit src;

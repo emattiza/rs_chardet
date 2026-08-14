@@ -14,7 +14,7 @@ concurrency:
 
 env:
   PACKAGE_NAME: rs_chardet
-  PYTHON_VERSION: "3.10" # to build abi3 wheels
+  PYTHON_VERSION: "3.11" # to build abi3 wheels
 
 jobs:
   macos:
@@ -35,13 +35,6 @@ jobs:
       - name: Install built wheel - aarch64
         run: |
           pip install dist/${{ env.PACKAGE_NAME }}-*.whl --force-reinstall
-      - name: Build wheels - universal2
-        uses: PyO3/maturin-action@v1
-        with:
-          args: --release --universal2 --out dist -i python${{ env.PYTHON_VERSION }}
-      - name: Install built wheel - universal2
-        run: |
-          pip install dist/${{ env.PACKAGE_NAME }}-*universal2.whl --force-reinstall
       - name: Upload wheels
         uses: actions/upload-artifact@v6
         with:
@@ -96,10 +89,9 @@ jobs:
           manylinux: auto
           args: --release --out dist -i python${{ env.PYTHON_VERSION }}
           before-script-linux: |
-            echo $(which python3.10)
-            python3.10 --version
+            echo $(which python3.11)
+            python3.11 --version
       - name: Install built wheel
-        if: (matrix.os == 'ubuntu-latest' && matrix.target == 'x86_64') || (matrix.os == 'macos-15' && matrix.target == 'aarch64')
         run: |
           pip install dist/${{ env.PACKAGE_NAME }}-*.whl --force-reinstall
       - name: Upload wheels
@@ -112,7 +104,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        target: [aarch64, armv7]
+        target: [aarch64]
     steps:
       - uses: actions/checkout@v6
       - name: Setup QEMU
@@ -129,8 +121,8 @@ jobs:
           manylinux: auto
           args: --release --out dist -i python${{ env.PYTHON_VERSION }}
           before-script-linux: |
-            echo $(which python3.10)
-            python3.10 --version
+            echo $(which python3.11)
+            python3.11 --version
       - name: Upload wheels
         uses: actions/upload-artifact@v6
         with:
