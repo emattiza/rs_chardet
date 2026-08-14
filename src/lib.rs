@@ -15,14 +15,11 @@ fn detect_rs_enc_name(a: &[u8]) -> PyResult<&str> {
 /// Detect a character set from an array of bytes
 /// Returns the name as found by codecs.lookup from python
 #[pyfunction]
-fn detect_codec(a: &[u8]) -> PyResult<PyObject> {
+fn detect_codec(py: Python<'_>, a: &[u8]) -> PyResult<Py<PyAny>> {
     let enc_rs_name = detect_rs_enc_name(a)?;
-    let lookup_codec: PyResult<PyObject> = Python::with_gil(|py| {
-        let lookup_fn = py.import("codecs")?.getattr("lookup")?;
-        let lookup_value = lookup_fn.call1((enc_rs_name,))?.into();
-        Ok(lookup_value)
-    });
-    lookup_codec
+    let lookup_fn = py.import("codecs")?.getattr("lookup")?;
+    let lookup_value = lookup_fn.call1((enc_rs_name,))?;
+    Ok(lookup_value.into())
 }
 
 /// Chardet-NG support in python from rust

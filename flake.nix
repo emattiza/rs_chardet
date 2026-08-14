@@ -3,20 +3,15 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
-    rust-overlay = {
-      url = "github:oxalica/rust-overlay";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs = inputs:
     inputs.flake-utils.lib.eachDefaultSystem (system: let
       pkgs = import inputs.nixpkgs {
         inherit system;
-        overlays = [inputs.rust-overlay.overlays.default];
       };
       project_name = "rs_chardet";
-      project_version = "0.4.1";
+      project_version = "0.5.0";
       python_version = pkgs.python313;
       buildPythonPackage = pkgs.python313Packages.buildPythonPackage;
     in rec {
@@ -26,14 +21,13 @@
         pythonpkg = python_version.withPackages (ps: [
           lib.python_module
           ps.chardet
-          ps.cchardet
         ]);
       };
       devShells.default = pkgs.mkShell {
         buildInputs = [
-          pkgs.rust-bin.stable.latest.default
-          pkgs.rust-analyzer
+          pkgs.rustc
           pkgs.cargo
+          pkgs.rust-analyzer
           pkgs.maturin
           packages.pythonpkg
         ];
