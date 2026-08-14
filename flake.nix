@@ -11,7 +11,7 @@
         inherit system;
       };
       project_name = "rs_chardet";
-      project_version = "0.5.0";
+      project_version = "0.6.0";
       python_version = pkgs.python313;
       buildPythonPackage = pkgs.python313Packages.buildPythonPackage;
     in rec {

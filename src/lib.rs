@@ -1,13 +1,13 @@
-use chardetng::EncodingDetector;
+use chardetng::{EncodingDetector, Iso2022JpDetection, Utf8Detection};
 use pyo3::prelude::*;
 
 /// Detect a character set from an array of bytes
 /// Returns the name as found by chardet-ng
 #[pyfunction]
 fn detect_rs_enc_name(a: &[u8]) -> PyResult<&str> {
-    let mut detector = EncodingDetector::new();
+    let mut detector = EncodingDetector::new(Iso2022JpDetection::Allow);
     detector.feed(a, true);
-    let encoding = detector.guess(None, true);
+    let encoding = detector.guess(None, Utf8Detection::Allow);
     let rust_name = encoding.name();
     Ok(rust_name)
 }
