@@ -18,12 +18,12 @@ buildPythonPackage rec {
   cargoDeps = rustPlatform.fetchCargoVendor {
     inherit src;
     name = "${pname}-${version}";
-    hash = "sha256-3/aE+RfMohd5GtVB2LtYKuLbIQWP4tlTAzAgHuSruD4=";
+    hash = "sha256-+01Xhn1SEYXRRzkfE3gaPeG8aihzDKaDV1bplg0VjsU=";
   };
 
   nativeBuildInputs = with rustPlatform; [cargoSetupHook maturinBuildHook];
 
-  buildInputs = lib.optionals stdenv.isDarwin [libiconv];
+  buildInputs = lib.optionals stdenv.hostPlatform.isDarwin [libiconv];
 
   pythonImportsCheck = ["${pname}"];
 
